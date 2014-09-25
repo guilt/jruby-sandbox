@@ -19,6 +19,7 @@ module Sandbox
       keep_methods(:FalseClass, FALSECLASS_METHODS)
       keep_methods(:Enumerable, ENUMERABLE_METHODS)
       keep_methods(:String, STRING_METHODS)
+      keep_methods(:IO, IO_METHODS)
 
       # FIXME: Blacklisting Object methods is not a scalable solution.
       # Whitelisting using #keep_methods is safer.
@@ -124,9 +125,11 @@ module Sandbox
     end
 
     IO_S_METHODS = %w[
-      new
+      close
       foreach
+      new
       open
+      select
     ]
 
     KERNEL_S_METHODS = %w[
@@ -188,6 +191,7 @@ module Sandbox
       eql?
       equal?
       eval
+      extend
       fail
       Float
       format
@@ -199,6 +203,7 @@ module Sandbox
       hash
       id
       initialize_copy
+      initialize_dup
       inspect
       instance_eval
       instance_of?
@@ -315,6 +320,7 @@ module Sandbox
       <=>
       ==
       =~
+      bytesize
       capitalize
       capitalize!
       casecmp
@@ -336,6 +342,7 @@ module Sandbox
       each_line
       empty?
       eql?
+      force_encoding
       gsub
       gsub!
       hash
@@ -394,6 +401,15 @@ module Sandbox
       upto
       []
       []=
+    ].freeze
+  IO_METHODS = %w[
+      close
+      closed?
+      fcntl
+      flush
+      select
+      sync
+      sync=
     ].freeze
   end
 end
